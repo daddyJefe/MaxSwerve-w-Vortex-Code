@@ -79,6 +79,7 @@ public class DriveSubsystem extends SubsystemBase {
             m_rearLeft.getPosition(),
             m_rearRight.getPosition()
         });
+       
   }
 
   /**
@@ -230,8 +231,15 @@ public class DriveSubsystem extends SubsystemBase {
    * @return the robot's heading in degrees, from -180 to 180
    */
   public double getHeading() {
-    return Rotation2d.fromDegrees(m_gyro.getAngle(IMUAxis.kZ)).getDegrees();
-  }
+    // Get the robot's current pose from the odometry
+    Pose2d currentPose = m_odometry.getPoseMeters();
+
+    // Return the robot's rotation (heading) in degrees
+   
+    return currentPose.getRotation().getDegrees();
+    
+}
+
 
   /**
    * Returns the turn rate of the robot.
